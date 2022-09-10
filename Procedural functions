@@ -1,0 +1,159 @@
+Non- OOP
+# # Multiple Accounts using lists
+#
+account_name = []
+account_balance = []
+account_password = []
+account_numbers = []
+n_accounts = -1
+
+
+def new_account(name, balance, password,):
+    global account_name, account_password, account_balance
+
+    account_name.append(name)
+    account_balance.append(balance)
+    account_password.append(password)
+    # account_numbers.append(account_number)
+
+
+def show(account_number, password):
+    global account_name, account_password, account_balance, account_numbers
+
+    if account_number == account_numbers[account_number]:
+        return None, print('Wrong Password') if password != account_password[account_number] \
+            else print(f'Account Number: {account_number}\nAccount name {account_name[account_number]}'
+                       f'\nAccount balance {account_balance[account_number]}'
+                       f'\nAccount Password {account_password[account_number]}')
+    else:
+        print('Wrong Account no entered')
+        return None
+
+
+def get_balance(account_number, password):
+    global account_name, account_password, account_balance, account_numbers
+
+    if account_number == account_numbers[account_number]:
+        if password != account_password[account_number]:
+            print('Incorrect password')
+            return None
+        return account_balance[account_number]
+
+    else:
+        print('Wrong Account no entered')
+        return None
+
+
+def deposit(account_number, deposit_amount, password):
+    global account_name, account_password, account_balance, account_numbers
+
+    if account_number == account_numbers[account_number]:
+        if deposit_amount <= 0:
+            print('You cannot deposit negative or zero amount!')
+            return None
+        if password != account_password[account_number]:
+            print('Wrong Password')
+            return None
+        account_balance[account_number] += deposit_amount
+        return account_balance[account_number]
+
+    else:
+        print('Wrong Account no entered')
+        return None
+
+
+def withdraw(account_number, withdraw_amount, password):
+    global account_name, account_password, account_balance, account_numbers
+
+    if account_number == account_numbers[account_number]:
+        if withdraw_amount < 0:
+            print('You cannot withdraw Negative or Zero amount')
+            return None
+        elif withdraw_amount > account_balance[account_number]:
+            print("you cannot withdraw more than your account balance")
+            return None
+        if password != account_password[account_number]:
+            print("Wrong Password")
+            return None
+        account_balance[account_number] -= withdraw_amount
+        return account_balance[account_number]
+
+    else:
+        print('Wrong Account no entered')
+        return None
+
+
+# Main program
+
+while True:
+    print()
+    print('Press "b" to get the balance. Press "d" to make a deposit\nPress "w" to make a '
+          'withdrawal. Press "s" to show the account\nPress "n" to create New Account\n'
+          'Press "q" to quit\n')
+    print()
+
+    action = input('What do you want to do? ')
+    action = action.lower()  # force lowercase
+    action = action[0]  # just use first letter
+    print()
+
+    if action == 'b':
+        print('Get Balance:')
+        user_account = int(input('Please enter Your account number: '))
+        user_password = input('Please enter the password: ')
+        the_balance = get_balance(user_account, user_password)
+        if the_balance is not None:
+            print('Your balance is:', the_balance)
+
+    elif action == 'n':
+        print('New Account:')
+        user_name = input('Please Enter your Name: ')
+        user_password = input('Please enter the password: ')
+        user_balance = int(input('Please Enter the Amount to Deposit: '))
+        if user_balance <= 0:
+            print('You cannot deposit The Negative or Zero Amount')
+        elif user_name is int:
+            print('You cannot Add Numerical Name!!!')
+        # elif user_account in account_numbers:
+        #     print("You cannot Duplicate the Account")
+        else:
+            new_account(user_name, user_balance, user_password)
+            for i in range(1):
+                n_accounts += 1
+                account_numbers.append(n_accounts)
+            print(f'Your Account number is {str(account_numbers[-1])[-1]} ')
+
+            # print(account_numbers) # for checking n_accounts in list
+
+    elif action == 'd':
+        print('Deposit:')
+        user_account = int(input('Please enter Your account number: '))
+        user_deposit_amount = int(input('Please enter amount to deposit: '))
+        user_password = input('Please enter the password: ')
+        new_balance = deposit(user_account, user_deposit_amount, user_password)
+        if new_balance is not None:
+            print('Your new balance is:', new_balance)
+
+    elif action == 'w':
+        print('Withdraw')
+        user_account = int(input('Please enter Your account number: '))
+        user_withdraw_amount = int(input('Please enter amount to withdraw: '))
+        user_password = input('Please enter the password: ')
+        new_balance = withdraw(user_account, user_withdraw_amount, user_password)
+        if new_balance is not None:
+            print('Your new balance is:', new_balance)
+
+    elif action == 's':
+        print('Show Details')
+        user_account = int(input('Please enter Your account number: '))
+        user_password = input('Please enter the password: ')
+        name = 'x'
+        show(user_account, user_password)
+
+    elif action == 'q':
+        break
+
+    else:
+        print('Wrong Input')
+    print()
+    print('Done')
